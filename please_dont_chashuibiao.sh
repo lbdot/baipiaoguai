@@ -37,13 +37,13 @@ install_nginx(){
     systemctl stop firewalld
     systemctl disable firewalld
     yum install -y libtool perl-core zlib-devel gcc wget pcre* unzip
-    wget https://www.openssl.org/source/openssl-1.1.1a.tar.gz
+    wget --no-check-certificate https://www.openssl.org/source/openssl-1.1.1a.tar.gz
     tar xzvf openssl-1.1.1a.tar.gz
     
     mkdir /etc/nginx
     mkdir /etc/nginx/ssl
     mkdir /etc/nginx/conf.d
-    wget https://nginx.org/download/nginx-1.15.8.tar.gz
+    wget --no-check-certificate https://nginx.org/download/nginx-1.15.8.tar.gz
     tar xf nginx-1.15.8.tar.gz && rm nginx-1.15.8.tar.gz
     cd nginx-1.15.8
     ./configure --prefix=/etc/nginx --with-openssl=../openssl-1.1.1a --with-openssl-opt='enable-tls1_3' --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_sub_module --with-stream --with-stream_ssl_module
@@ -97,6 +97,7 @@ EOF
     /etc/nginx/sbin/nginx
 
     curl https://get.acme.sh | sh
+    ~/.acme.sh --register-account -m me@$domain
     ~/.acme.sh/acme.sh  --issue  -d $domain  --webroot /etc/nginx/html/
     ~/.acme.sh/acme.sh  --installcert  -d  $domain   \
         --key-file   /etc/nginx/ssl/$domain.key \
@@ -148,7 +149,7 @@ install_v2ray(){
     bash <(curl -s https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)  
     cd /usr/local/etc/v2ray/
     rm -f config.json
-    wget https://raw.githubusercontent.com/X1A0CA1/X1A0CA1-this_is_a_fuqiang_tool/master/config.json
+    wget --no-check-certificate https://raw.githubusercontent.com/X1A0CA1/X1A0CA1-this_is_a_fuqiang_tool/master/config.json
     v2uuid=$(cat /proc/sys/kernel/random/uuid)
     sed -i "s/aaaa/$v2uuid/;" config.json
     newpath=$(cat /dev/urandom | head -1 | md5sum | head -c 4)
@@ -156,7 +157,7 @@ install_v2ray(){
     sed -i "s/mypath/$newpath/;" /etc/nginx/conf.d/default.conf
     cd /etc/nginx/html
     rm -f /etc/nginx/html/*
-    wget https://github.com/X1A0CA1/X1A0CA1-this_is_a_fuqiang_tool/raw/master/web.zip
+    wget --no-check-certificate https://github.com/X1A0CA1/X1A0CA1-this_is_a_fuqiang_tool/raw/master/web.zip
     unzip web.zip
     /etc/nginx/sbin/nginx -s stop
     /etc/nginx/sbin/nginx
