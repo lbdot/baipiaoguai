@@ -97,7 +97,7 @@ EOF
     /etc/nginx/sbin/nginx
 
     curl https://get.acme.sh | sh
-    ~/.acme.sh --register-account -m me@$domain
+    ~/.acme.sh/acme.sh --register-account -m me@$domain
     ~/.acme.sh/acme.sh  --issue  -d $domain  --webroot /etc/nginx/html/
     ~/.acme.sh/acme.sh  --installcert  -d  $domain   \
         --key-file   /etc/nginx/ssl/$domain.key \
