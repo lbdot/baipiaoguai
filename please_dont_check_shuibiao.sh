@@ -120,9 +120,13 @@ server {
     location / {
        try_files \$uri \$uri/ /index.php?\$args;
     }
+    include /etc/nginx/proxy.conf;
 }
 EOF
 }
+
+wget -P /etc/nginx/ https://raw.githubusercontent.com/lilungpo/X1A0CA1-this_is_a_fuqiang_tool/master/proxy.conf
+
 #安装v2ray
 install_v2ray(){
     
