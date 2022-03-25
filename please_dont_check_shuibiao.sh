@@ -145,13 +145,27 @@ install_v2ray(){
     /etc/nginx/sbin/nginx
     
     #增加自启动脚本
-cat > /etc/init.d/auto_run_nginx.sh<<-EOF
-#!/bin/sh -e
-/etc/nginx/sbin/nginx
-EOF
+cat > /etc/systemd/system/nginx.service <<EOF
+[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
 
-    #设置脚本权限
-    chmod +x /etc/init.d/auto_run_nginx.sh
+[Service]
+Type=forking
+PIDFile=/etc/nginx/logs/nginx.pid
+ExecStartPre=/etc/nginx/sbin/nginx -t
+ExecStart=/etc/nginx/sbin/nginx
+ExecReload=/etc/nginx/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+EOF
+    #添加 nginx 自启动
+    systemctl enable nginx
+    
     #添加 v2ray 自启动
     systemctl enable v2ray
     systemctl restart v2ray
@@ -190,14 +204,14 @@ green
 
 remove_v2ray(){
 
-    /etc/nginx/sbin/nginx -s stop
+    systemctl stop nginx
+    systemctl disable nginx
     systemctl stop v2ray
     systemctl disable v2ray
     
     rm -rf /usr/bin/v2ray /usr/local/etc/v2ray
     rm -rf /usr/local/etc/v2ray
     rm -rf /etc/nginx
-    rm -rf /etc/init.d/auto_run_nginx.sh
     
     green "nginx、v2ray已删除"
     
