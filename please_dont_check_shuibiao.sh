@@ -127,7 +127,7 @@ EOF
 }
 
 # 反代
-# wget -P /etc/nginx/ https://raw.githubusercontent.com/lilungpo/X1A0CA1-this_is_a_fuqiang_tool/master/proxy.conf
+# wget -P /etc/nginx/ https://raw.githubusercontent.com/lilungpo/baipiaoguai/master/proxy.conf
 
 #安装v2ray
 install_v2ray(){
@@ -137,7 +137,7 @@ install_v2ray(){
     bash <(curl -s https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)  
     cd /usr/local/etc/v2ray/
     rm -f config.json
-    wget --no-check-certificate https://raw.githubusercontent.com/lilungpo/X1A0CA1-this_is_a_fuqiang_tool/master/config.json
+    wget --no-check-certificate https://raw.githubusercontent.com/lilungpo/baipiaoguai/master/config.json
     v2uuid=$(cat /proc/sys/kernel/random/uuid)
     sed -i "s/aaaa/$v2uuid/;" config.json
     newpath=$(cat /dev/urandom | head -1 | md5sum | head -c 4)
@@ -145,7 +145,7 @@ install_v2ray(){
     sed -i "s/mypath/$newpath/;" /etc/nginx/conf.d/default.conf
     cd /etc/nginx/html
     rm -f /etc/nginx/html/*
-    wget --no-check-certificate https://github.com/lilungpo/X1A0CA1-this_is_a_fuqiang_tool/raw/master/web.zip
+    wget --no-check-certificate https://github.com/lilungpo/baipiaoguai/raw/master/web.zip
     unzip web.zip
     /etc/nginx/sbin/nginx -s stop
     /etc/nginx/sbin/nginx
