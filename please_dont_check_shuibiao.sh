@@ -120,7 +120,8 @@ server {
     location / {
        try_files \$uri \$uri/ /index.php?\$args;
     }
-    include /etc/nginx/proxy.conf;
+    # 反代
+    # include /etc/nginx/proxy.conf;
 }
 EOF
 }
