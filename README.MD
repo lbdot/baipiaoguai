@@ -3,7 +3,7 @@
 
 **Debian**
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/lilungpo/X1A0CA1-this_is_a_fuqiang_tool/master/please_dont_check_shuibiao.sh)
+bash <(curl -s https://raw.githubusercontent.com/lilungpo/baipiaoguai/master/please_dont_check_shuibiao.sh)
 ```
 
 
