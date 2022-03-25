@@ -1,12 +1,7 @@
-## How to use?
+## How to baipiao?
 
-**Centos 7**
 
-```bash
-bash <(curl -s https://raw.githubusercontent.com/lilungpo/X1A0CA1-this_is_a_fuqiang_tool/master/please_dont_chashuibiao.sh)
-```
-
-**Debian 10**
+**Debian 10/11**
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/lilungpo/X1A0CA1-this_is_a_fuqiang_tool/master/please_dont_check_shuibiao.sh)
 ```
