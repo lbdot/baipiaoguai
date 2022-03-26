@@ -85,8 +85,18 @@ EOF
         --key-file   /etc/nginx/ssl/$domain.key \
         --fullchain-file /etc/nginx/ssl/fullchain.cer \
         --reloadcmd  "/etc/nginx/sbin/nginx -s reload"
-	
+
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
+
 cat > /etc/nginx/conf.d/default.conf<<-EOF
+server {
+    listen 80 default_server;
+    listen 443 ssl default_server;
+    ssl_certificate        /etc/nginx/ssl/nginx.crt;
+    ssl_certificate_key    /etc/nginx/ssl/nginx.key;
+    server_name _;
+    return 444;
+}
 server { 
     listen       80;
     server_name  $domain;
