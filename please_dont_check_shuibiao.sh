@@ -25,15 +25,15 @@ install_nginx(){
     systemctl disable firewalld
     apt update -y
     apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev liblua5.1-dev libluajit-5.1-dev libgeoip-dev google-perftools libgoogle-perftools-dev gcc autoconf automake make cron sysv-rc-conf
-    wget --no-check-certificate https://www.openssl.org/source/openssl-1.1.1a.tar.gz
-    tar xzvf openssl-1.1.1a.tar.gz
+    wget --no-check-certificate https://www.openssl.org/source/openssl-1.1.1n.tar.gz
+    tar xzvf openssl-1.1.1n.tar.gz
     mkdir /etc/nginx
     mkdir /etc/nginx/ssl
     mkdir /etc/nginx/conf.d
-    wget --no-check-certificate https://nginx.org/download/nginx-1.15.8.tar.gz
-    tar xf nginx-1.15.8.tar.gz && rm nginx-1.15.8.tar.gz
-    cd nginx-1.15.8
-    ./configure --prefix=/etc/nginx --with-openssl=../openssl-1.1.1a --with-openssl-opt='enable-tls1_3' --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_sub_module --with-stream --with-stream_ssl_module
+    wget --no-check-certificate https://nginx.org/download/nginx-1.20.2.tar.gz
+    tar xf nginx-1.20.2.tar.gz && rm nginx-1.20.2.tar.gz
+    cd nginx-1.20.2
+    ./configure --prefix=/etc/nginx --with-openssl=../openssl-1.1.1n --with-openssl-opt='enable-tls1_3' --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_sub_module --with-stream --with-stream_ssl_module
     make && make install
 
 cat > /etc/nginx/conf/nginx.conf <<-EOF
