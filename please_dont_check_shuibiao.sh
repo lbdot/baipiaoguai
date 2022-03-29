@@ -26,7 +26,7 @@ install_nginx(){
     apt update -y
     apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev liblua5.1-dev libluajit-5.1-dev libgeoip-dev google-perftools libgoogle-perftools-dev gcc autoconf automake make cron sysv-rc-conf
     wget --no-check-certificate https://www.openssl.org/source/openssl-1.1.1n.tar.gz
-    tar xzvf openssl-1.1.1n.tar.gz
+    tar xzvf openssl-1.1.1n.tar.gz && rm openssl-1.1.1n.tar.gz
     mkdir /etc/nginx
     mkdir /etc/nginx/ssl
     mkdir /etc/nginx/conf.d
