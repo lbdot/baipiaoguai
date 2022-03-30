@@ -24,7 +24,7 @@ install_nginx(){
     systemctl stop firewalld
     systemctl disable firewalld
     apt update -y
-    apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev liblua5.1-dev libluajit-5.1-dev libgeoip-dev google-perftools libgoogle-perftools-dev gcc autoconf automake make cron sysv-rc-conf
+    apt install -y wget build-essential libpcre3 libpcre3-dev zlib1g-dev liblua5.1-dev libluajit-5.1-dev libgeoip-dev google-perftools libgoogle-perftools-dev gcc autoconf automake make cron sysv-rc-conf
     wget --no-check-certificate https://www.openssl.org/source/openssl-1.1.1n.tar.gz
     tar xzvf openssl-1.1.1n.tar.gz && rm openssl-1.1.1n.tar.gz
     mkdir /etc/nginx
@@ -142,7 +142,6 @@ EOF
 #安装v2ray
 install_v2ray(){
     
-    apt-get install wget 
     cd ~
     bash <(curl -s https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)  
     cd /usr/local/etc/v2ray/
