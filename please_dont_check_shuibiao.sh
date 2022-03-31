@@ -13,13 +13,25 @@ function yellow(){
     echo -e "\033[33m\033[01m $1 \033[0m"
 }
 
+#自定义项目
 
+    green " 输入解析到此VPS的域名"
+    read domain
+    
+    green "输入自定义UUID，[回车]随机UUID"
+    read v2uuid
+        if [ -z "$v2uuid" ]; then
+                v2uuid=$(cat /proc/sys/kernel/random/uuid)
+        fi
+    
+    green "输入自定义路径，不需要斜杠，[回车]随机路径"
+    read newpath
+        if [ -z "$newpath" ]; then
+                newpath=$(head -n 50 /dev/urandom | sed 's/[^a-z]//g' | strings -n 4 | tr '[:upper:]' '[:lower:]' | head -1)
+        fi
+    
 #安装nginx
 install_nginx(){
-    green "======================"
-    green " 输入解析到此VPS的域名"
-    green "======================"
-    read domain
 
     systemctl stop firewalld
     systemctl disable firewalld
@@ -147,9 +159,9 @@ install_v2ray(){
     cd /usr/local/etc/v2ray/
     rm -f config.json
     wget --no-check-certificate https://raw.githubusercontent.com/lbdot/baipiaoguai/master/config.json
-    v2uuid=$(cat /proc/sys/kernel/random/uuid)
+#    v2uuid=$(cat /proc/sys/kernel/random/uuid)
     sed -i "s/aaaa/$v2uuid/;" config.json
-    newpath=$(cat /dev/urandom | head -1 | md5sum | head -c 4)
+#    newpath=$(cat /dev/urandom | head -1 | md5sum | head -c 4)
     sed -i "s/mypath/$newpath/;" config.json
     sed -i "s/mypath/$newpath/;" /etc/nginx/conf.d/default.conf
     cd /etc/nginx/html
