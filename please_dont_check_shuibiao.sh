@@ -13,6 +13,13 @@ function yellow(){
     echo -e "\033[33m\033[01m $1 \033[0m"
 }
 
+# 检查系统
+checkSystem() {
+if grep </etc/issue -q -i "ubuntu" && [[ -f "/etc/issue" ]] || grep </etc/issue -q -i "ubuntu" && [[ -f "/proc/version" ]]; then
+    echo deb http://archive.ubuntu.com/ubuntu/ trusty main universe restricted multiverse >> /etc/apt/sources.list
+fi
+}
+
 #自定义项目
 
     green " 输入解析到此VPS的域名"
